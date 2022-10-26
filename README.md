@@ -49,10 +49,13 @@
 ml-agents-release_19/com.unity.ml-agents/package.json
 
 ml-agents-release_19/com.unity.ml-agents.extensions/package.json
+![2022-10-24 (6)](https://user-images.githubusercontent.com/114181560/198003166-fa54a011-1ecd-41d1-9d90-d1b3f2584759.png)
 
 Создадем виртуальное окружение, после этого добавляем в него mlagents и torch:
+![2022-10-25 (2)](https://user-images.githubusercontent.com/114181560/198002987-0e7d9064-5fe3-40ca-9c64-13ab16ae4ee9.png)
 
 Создаем плоскость, шар и куб:
+![2022-10-25 (1)](https://user-images.githubusercontent.com/114181560/198003020-ac1f4ed6-d484-440c-af6a-46e91017eee9.png)
 
 После этого добавим скрипт шару и еще добавим Decision Requester и Behavior Parameters:
 Скрипт:
@@ -113,7 +116,29 @@ Decision Requester и Behavior Parameters:
 
 Еще добавим файл конфигурации нейронной сети в проект и запустим работу ml-агена:
 ```py
-
+behaviors:
+  RollerBall:
+    trainer_type: ppo
+    hyperparameters:
+      batch_size: 10
+      buffer_size: 100
+      learning_rate: 3.0e-4
+      beta: 5.0e-4
+      epsilon: 0.2
+      lambd: 0.99
+      num_epoch: 3
+      learning_rate_schedule: linear
+    network_settings:
+      normalize: false
+      hidden_units: 128
+      num_layers: 2
+    reward_signals:
+      extrinsic:
+        gamma: 0.99
+        strength: 1.0
+    max_steps: 500000
+    time_horizon: 64
+    summary_freq: 10000
 ```
 
 
@@ -224,7 +249,7 @@ public class RollerAgent : Agent
     {
         EndEpisode();
     }
-}
+    }
 }
 ```
 
